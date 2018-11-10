@@ -153,15 +153,13 @@
     <script src="js/custom.js"></script>
 
     <!-- SLIDER REVOLUTION SCRIPTS  -->
-    <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+    <!--<script type="text/javascript" src="rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
     <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-    <script src="js/revslider-custom.js"></script>
-
+    <script src="js/revslider-custom.js"></script>-->
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#preloader').delay(500).fadeOut(500);
-            $('#closeme').click(function () {
+                $('#closeme').click(function () {
                 $('#successModal').hide('fade');
             });
             $('#closemee').click(function () {
@@ -172,7 +170,7 @@
                 $('#divError').hide('fade');
             });
             $('#btnRegister').click(function () {
-
+                $('#preloader').show();
                 $.ajax({
                     url: '/api/account/register',
                     method: 'POST',
@@ -182,9 +180,11 @@
                         confirmPassword: $('#txtConfirmPassword').val()
                     },
                     success: function () {
+                        $('#preloader').hide();
                         $('#successModal').show("slow", function () { });
                     },
                     error: function (jqXHR) {
+                        $('#preloader').hide();
                         $('#divErrorText').text(jqXHR.responseText);
                         $('#divError').show('fade');
                     }

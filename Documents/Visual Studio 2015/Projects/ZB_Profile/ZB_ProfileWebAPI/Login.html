@@ -8,7 +8,9 @@
     <link href="css/main.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 </head>
-<body>   
+<body>
+
+    <div id="preloader"></div>
     <header>
         <div class="row">
             <div class="col-md-12">
@@ -67,7 +69,7 @@
                 <div class="logo-partners">
                     <div class="col-md-3"> <img src="img/zb1.jpg" class="rounded float-left img-fluid border border-white" alt="" /></div>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
     <br /><br />
@@ -79,7 +81,7 @@
                         <thead>
                             <tr>
                                 <td colspan="2">
-                                   <span class="fa fa-2x">Login</span> 
+                                    <span class="fa fa-2x">Login</span>
 
                                 </td>
                             </tr>
@@ -128,17 +130,20 @@
     <script src="js/custom.js"></script>
 
     <!-- SLIDER REVOLUTION SCRIPTS  -->
-    <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+    <!--<script type="text/javascript" src="rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
     <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-    <script src="js/revslider-custom.js"></script>
-    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="js/revslider-custom.js"></script>-->
+    <!--<script src="Scripts/jquery-1.10.2.min.js"></script>-->
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('#linkClose').click(function () {
                 $('#divError').hide('fade');
             });
             $('#btnLogin').click(function () {
+                $('#preloader').show('fade');
                 $.ajax({
                     url: '/token',
                     method: 'POST',
@@ -146,15 +151,17 @@
                     data: {
                         username: $('#txtUserName').val(),
                         password: $('#txtPassword').val(),
-                        grant_type:'password'
+                        grant_type: 'password'
                     },
                     success: function (response) {
+                        $('#preloader').hide('fade');
                         sessionStorage.setItem('accessToken', response.access_token);
                         window.location.href = "UserData.html";
                         //$('#divErrorText').text(JSON.stringify(response));
                         //$('#divError').show('fade');
                     },
                     error: function (jqXHR) {
+                        $('#preloader').hide('fade');
                         $('#divErrorText').text(jqXHR.responseText);
                         $('#divError').show('fade');
                     }

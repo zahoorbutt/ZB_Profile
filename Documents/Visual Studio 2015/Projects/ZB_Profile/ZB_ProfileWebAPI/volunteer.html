@@ -53,9 +53,11 @@
                     <div class="pull-right col-md-3">
                         <input class="form-control mr-sm-2" type="text" placeholder="Search">
                     </div>
+                   
                     <div class="col-md-2">
                         <button class="btn btn-dark" type="submit"><span class="fa fa-search"></span> Search</button>
                     </div>
+                    <ul class="list-group pull-right col-md-3" id="result"></ul>
                 </nav>
             </div>
         </div>
@@ -74,5 +76,34 @@
             </div>
         </div>
     </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+    //text search via json file
+    $('#txtSearch').on('keyup',function () {
+    //search from json file
+    $('#result').html('');
+    var searchField = $('#txtSearch').val();
+    var expression = new RegExp(searchField, "i");
+    $.getJSON('users.json', function (data) {
+        $.each(data, function (key, value) {
+            alert(data.Email);
+            if (value.UserName.search(expression) != -1 || value.Email.search(expression) != -1) {
+                $('#result').append('<li class="list-group-item">' + value.Email + '</li>');
+            }
+    });
+    });
+
+    //search from table
+    //var value = $(this).val().toLowerCase();
+    //$("#myTable tr").filter(function () {
+    //    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+
+    });
+
+            });
+
+    </script>
 </body>
 </html>
